@@ -111,6 +111,20 @@ public class AHPController {
 
             }
             double[][][] aggregatedMatrixsc = weightedAggregation(cubesc, weights);
+            FuzzyNumber[][] df=r.DtoF(aggregatedMatrixsc);
+            FuzzyNumber[] fna=r.flatten(df);
+            Projet p1= new Projet(id);
+            CalculeAHP ca=new CalculeAHP(fna,p1,aggregatedMatrixsc.length);
+                HttpEntity<CalculeAHP> entity11 = new HttpEntity<>(ca);
+                ResponseEntity<CalculeAHP> list2=  restTemplate.exchange(
+                        "http://SERVICE-DONNEES/saveCalcule",
+                        HttpMethod.POST,
+                        entity11,
+                        new ParameterizedTypeReference<CalculeAHP>(){});
+
+
+
+
 
 
             // FuzzyNumber[][] F=MatrixConstructor.matrix(list.getBody());

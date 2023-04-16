@@ -40,6 +40,29 @@ public class FuzzyNumber {
         return fcOMPAHP;
 
     }
+
+    public FuzzyNumber[][] DtoF(double[][][] d) {
+        FuzzyNumber[][] result = new FuzzyNumber[d.length][d[0].length];
+        for (int i = 0; i < d.length; i++) {
+            for (int j = 0; j < d[0].length; j++) {
+                result[i][j] = new FuzzyNumber(d[i][j][0], d[i][j][1], d[i][j][2]);
+            }
+        }
+        return result;
+    }
+
+    public FuzzyNumber[] flatten(FuzzyNumber[][] arr) {
+        int rows = arr.length;
+        int cols = arr[0].length;
+        FuzzyNumber[] flatArr = (FuzzyNumber[]) new Object[rows * cols];
+        int k = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                flatArr[k++] = arr[i][j];
+            }
+        }
+        return flatArr;
+    }
     public   FuzzyNumber inv(FuzzyNumber f){
         double i=0;
         i=1.0/f.lowerBound;

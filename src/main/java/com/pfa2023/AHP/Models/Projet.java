@@ -5,6 +5,10 @@ import org.springframework.context.annotation.ComponentScan;
 import java.util.Date;
 
 public class Projet {
+    public Projet(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Projet{" +
