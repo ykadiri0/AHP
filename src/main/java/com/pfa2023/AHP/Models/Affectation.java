@@ -1,7 +1,5 @@
 package com.pfa2023.AHP.Models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class Affectation {
 

@@ -1,8 +1,5 @@
 package com.pfa2023.AHP.Models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 public class SousCritere {
 
@@ -12,6 +9,17 @@ public class SousCritere {
     private String name;
     private Double poids;
     private int index;
+    public int getGbindex() {
+        return gbindex;
+    }
+
+    public void setGbindex(int gbindex) {
+        this.gbindex = gbindex;
+    }
+
+    private int gbindex;
+
+
 
     public void setPoids(Double poids) {
         this.poids = poids;

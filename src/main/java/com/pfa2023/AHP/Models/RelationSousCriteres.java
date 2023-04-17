@@ -1,9 +1,6 @@
 package com.pfa2023.AHP.Models;
 
 import com.pfa2023.AHP.Fuzzy.FuzzyNumber;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 public class RelationSousCriteres {
     private String id;

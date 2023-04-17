@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.pfa2023.AHP.Fuzzy.MatrixAggregation.weightedAggregation;
@@ -26,7 +27,7 @@ public class AHPController {
 
 
     @GetMapping("AHPmatrix/{id}")
-    public FAHP getAHP(@PathVariable("id") String id){
+    public FAHP getAHP(@PathVariable("id") String id) throws InterruptedException {
        // HttpHeaders headers = new HttpHeaders();
        // headers.setContentType(MediaType.APPLICATION_JSON)
         //;
@@ -55,13 +56,9 @@ public class AHPController {
 
         }
         double[] weights = {0.2, 1, 0.5};
-
         // Create the aggregated matrix using the weighted aggregation function
         double[][][] aggregatedMatrix = weightedAggregation(cube, weights);
-
-
         // FuzzyNumber[][] F=MatrixConstructor.matrix(list.getBody());
-
         double [][] m1={ { 1, 3, 5 ,1}, {3, 1.5, 2,1}, { 0.2, 0.5, 1,1}, { 0.2, 0.5, 1,1}};
 
         FAHP fahp=new FAHP(aggregatedMatrix,m1);
@@ -98,8 +95,9 @@ public class AHPController {
 ///////////////////////////////////////////////////////////////
         System.out.println("begin sub ccccccccccccccccccccccrit");
         System.out.println(list3.getBody().size());
+        List<Thread> threads = new ArrayList<>();
         for (Critere c:list3.getBody()){
-            new Thread(() -> {
+            Thread t=new Thread(() -> {
             double[][][][] cubesc = new double[list1.getBody().size()][c.getNumSoucritere()][c.getNumSoucritere()][3];
             for(int i=0;i<list1.getBody().size();i++) {
                 ResponseEntity<List<RelationSousCriteres>> list4 = restTemplate.exchange(
@@ -147,18 +145,22 @@ public class AHPController {
                 }
 
             }
-
-
-
-
-
-
-        }).start();
+        });
+            t.start();
+            threads.add(t);
         }
 
+        for (Thread thread : threads) {
+            thread.join();
+        }
 
+        System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
 
-
+        ResponseEntity<List<SousCritere>> list322=  restTemplate.exchange(
+                "http://SERVICE-TOPSIS/Topsiscalcule/"+id,
+                HttpMethod.GET,
+                entity3,
+                new ParameterizedTypeReference<List<SousCritere>>(){});
         return  fahp;
     }
 
