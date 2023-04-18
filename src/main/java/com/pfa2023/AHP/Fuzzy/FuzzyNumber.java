@@ -54,7 +54,7 @@ public class FuzzyNumber {
     public FuzzyNumber[] flatten(FuzzyNumber[][] arr) {
         int rows = arr.length;
         int cols = arr[0].length;
-        FuzzyNumber[] flatArr = (FuzzyNumber[]) new Object[rows * cols];
+        FuzzyNumber[] flatArr = new FuzzyNumber[rows * cols];
         int k = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {

@@ -114,7 +114,7 @@ public class AHPController {
             FuzzyNumber[][] df=r.DtoF(aggregatedMatrixsc);
             FuzzyNumber[] fna=r.flatten(df);
             Projet p1= new Projet(id);
-            CalculeAHP ca=new CalculeAHP(fna,p1,aggregatedMatrixsc.length);
+            CalculeAHP ca=new CalculeAHP(fna,p1,"ahp",aggregatedMatrixsc.length,aggregatedMatrixsc[0].length);
                 HttpEntity<CalculeAHP> entity11 = new HttpEntity<>(ca);
                 ResponseEntity<CalculeAHP> list2=  restTemplate.exchange(
                         "http://SERVICE-DONNEES/saveCalcule",
